@@ -10,9 +10,6 @@ const signToken = id => {
     expiresIn: process.env.LOGIN_EXPIRES,
   });
 };
-
-
-
 exports.signup = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -32,7 +29,7 @@ exports.signup = asyncHandler(async (req, res) => {
   // Generate email verification token
   const verificationToken = crypto.randomBytes(32).toString('hex');
   newUser.verificationToken = verificationToken;
-  newUser.verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
+  console.log('Generated verification token:', newUser.verificationToken);
   await newUser.save();
 
   // Send verification email
@@ -48,11 +45,11 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.params;
 
   // Find user by token and check if it's not expired
+  console.log('Verifying email with token:', token);
   const user = await userModel.findOne({
     verificationToken: token,
-    verificationTokenExpires: { $gt: Date.now() },
   });
-
+  console.log('User found for verification:', user);
   if (!user) {
     return res.status(400).json({
       status: 'fail',
@@ -62,8 +59,6 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
 
   // Mark user as verified and remove the verification token
   user.isVerified = true;
-  user.verificationToken = undefined;
-  user.verificationTokenExpires = undefined;
   await user.save();
 
   // Generate JWT for the verified user
@@ -73,6 +68,7 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
     status: 'success',
     message: 'Email verified successfully. You can now log in.',
     token: authToken,
+    user
   });
 });
 

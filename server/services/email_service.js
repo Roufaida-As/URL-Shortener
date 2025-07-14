@@ -18,7 +18,7 @@ exports.sendVerificationEmail = async (email, token) => {
         to: email,
         subject: 'Verify your email',
         html: `<p>Click the link below to verify your email:</p>
-        <a href="${process.env.BASE_URL}/verify-email/${token}">Verify Email</a>`,
+        <a href="${process.env.FRONTEND_URL}/verify/${token}">Verify Email</a>`,
     };
 
     try {

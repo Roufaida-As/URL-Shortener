@@ -27,7 +27,6 @@ const userSchema = mongoose.Schema({
         default: false,
     },
     verificationToken: String,
-    verificationTokenExpires: Date,
 
 })
 

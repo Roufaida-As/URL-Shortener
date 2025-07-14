@@ -5,8 +5,17 @@ const mongoose = require('mongoose')
 const urlRouter = require('./routes/url_router')
 const userRouter = require('./routes/user_router')
 const path = require('path');
+const cors = require('cors');
 
+// Configure CORS
+app.use(cors({
+    origin: process.env.FRONTEND_URL || '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
+// For preflight requests
+app.options('*', cors());
 
 dotenv.config({ path: './.env' })
 port = process.env.port
