@@ -53,3 +53,14 @@ exports.redirect = asyncHandler(async (req, res) => {
         });
     }
 });
+
+exports.getAllUrls = asyncHandler(async (req, res) => {
+    const userId = req.user._id;
+    const urls = await Url.find({ userId }).sort({ createdAt: -1 });
+    console.log('Fetched URLs for user:', userId, urls);
+
+    res.status(200).json({
+        status: 'success',
+        data: urls
+    });
+});

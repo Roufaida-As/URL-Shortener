@@ -70,7 +70,7 @@ const Alert = ({
               {title}
             </h4>
           )}
-          <p className={`text-sm leading-relaxed ${variant.message}`}>
+          <p className={`text-sm leading-relaxed pr-4 ${variant.message}`}>
             {message}
           </p>
         </div>

@@ -68,4 +68,13 @@ export const api = {
         });
         return handleResponse(response);
     },
+    getAllUrls: async (token) => {
+        const response = await fetch(`${API_BASE_URL}/urls`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return handleResponse(response);
+    },
 };
