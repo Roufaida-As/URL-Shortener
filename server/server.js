@@ -36,8 +36,8 @@ mongoose.connect(process.env.CONN_STR, {}).then(() => {
     console.log(err);
 });
 
-app.use("/urls", urlRouter)
-app.use('/', userRouter)
+app.use("/api/urls", urlRouter)
+app.use('/api/', userRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
