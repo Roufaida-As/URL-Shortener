@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://url-shortener-yhyd.vercel.app';
+export const API_BASE_URL = 'http://localhost:3000';
