@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://url-shortener-backend-roufaidas-projects.vercel.app';
+export const API_BASE_URL = 'https://url-shortener-backend-pearl.vercel.app';
