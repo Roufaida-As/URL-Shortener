@@ -9,7 +9,8 @@ const cors = require('cors');
 
 // Configure CORS
 app.use(cors({
-    origin: process.env.FRONTEND_URL || '*', 
+    origin: "https://linkly-psi-five.vercel.app/" || "http://localhost:5173/", // Adjust the origin as needed
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
