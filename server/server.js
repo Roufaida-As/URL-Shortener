@@ -10,9 +10,8 @@ const cors = require('cors');
 
 // Define allowed origins
 const allowedOrigins = [
-    'https://linkly-psi-five.vercel.app',
-    'http://localhost:5173', // for local development
-    'http://localhost:3000',
+    'https://linkly-psi-five.vercel.app/',
+    'http://localhost:5173/', // for local development
     process.env.FRONTEND_URL
 ].filter(Boolean); // Remove any undefined values
 
