@@ -3,8 +3,6 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const handleResponse = async (response) => {
     const contentType = response.headers.get('content-type');
-
-    // Check if response is JSON
     if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
         if (!response.ok) {
@@ -12,7 +10,6 @@ const handleResponse = async (response) => {
         }
         return data;
     } else {
-        // Handle non-JSON response (like HTML error pages)
         const text = await response.text();
         throw new Error(`Server returned ${response.status}: ${text.slice(0, 100)}`);
     }

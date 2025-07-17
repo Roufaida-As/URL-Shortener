@@ -7,9 +7,8 @@ const userRouter = require('./routes/user_router')
 const path = require('path');
 const cors = require('cors');
 
-// Define allowed origins (NO trailing slashes)
 const allowedOrigins = [
-    'https://linkly-psi-five.vercel.app',
+    'https://linky-url-shortener.vercel.app',
     'http://localhost:5173',
     process.env.FRONTEND_URL
 ].filter(Boolean).map(url => url.replace(/\/$/, ''));
@@ -37,21 +36,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Handle preflight requests for all routes
 app.options('*', cors(corsOptions));
 
 dotenv.config({ path: './.env' })
 port = process.env.port
 
-//add request body to request object(middleware)
 app.use(express.json())
-
-
-// Serve static files from the "img" folder
-//in order to access those images from the frontend
-//app.use('/img', express.static(path.join(__dirname, 'img')));
-
-
 
 mongoose.connect(process.env.CONN_STR, {}).then(() => {
     console.log('Database connected');
@@ -63,20 +53,19 @@ app.use("/api/urls", urlRouter)
 app.use('/api/', userRouter)
 
 
-//DEBUUG 
-// Add this route to your server.js for debugging
-app.get('/debug-cors', (req, res) => {
-    const allowedOrigins = [
-        'https://linkly-psi-five.vercel.app/'
-    ].filter(Boolean).map(url => url.replace(/\/$/, ''));
+// //DEBUUG 
+// app.get('/debug-cors', (req, res) => {
+//     const allowedOrigins = [
+//         'https://linkly-psi-five.vercel.app/'
+//     ].filter(Boolean).map(url => url.replace(/\/$/, ''));
     
-    res.json({
-        origin: req.headers.origin,
-        allowedOrigins: allowedOrigins,
-        frontendUrl: process.env.FRONTEND_URL,
-        allHeaders: req.headers
-    });
-});
+//     res.json({
+//         origin: req.headers.origin,
+//         allowedOrigins: allowedOrigins,
+//         frontendUrl: process.env.FRONTEND_URL,
+//         allHeaders: req.headers
+//     });
+// });
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
