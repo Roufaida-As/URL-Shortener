@@ -67,8 +67,7 @@ app.use('/api/', userRouter)
 // Add this route to your server.js for debugging
 app.get('/debug-cors', (req, res) => {
     const allowedOrigins = [
-        'https://linkly-psi-five.vercel.app',
-        process.env.FRONTEND_URL
+        'https://linkly-psi-five.vercel.app/'
     ].filter(Boolean).map(url => url.replace(/\/$/, ''));
     
     res.json({
