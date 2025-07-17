@@ -8,9 +8,7 @@ const path = require('path');
 const cors = require('cors');
 
 const allowedOrigins = [
-    'https://linky-url-shortener.vercel.app',
-    'http://localhost:5173',
-    process.env.FRONTEND_URL
+    'https://linky-url-shortener.vercel.app/',
 ].filter(Boolean).map(url => url.replace(/\/$/, ''));
 
 // CORS configuration
