@@ -18,7 +18,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://linkly-psi-five.vercel.app"
+          "value": "https://linkly-psi-five.vercel.app/"
         },
         {
           "key": "Access-Control-Allow-Methods",
