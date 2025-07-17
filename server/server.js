@@ -68,7 +68,6 @@ app.use('/api/', userRouter)
 app.get('/debug-cors', (req, res) => {
     const allowedOrigins = [
         'https://linkly-psi-five.vercel.app',
-        'http://localhost:5173',
         process.env.FRONTEND_URL
     ].filter(Boolean).map(url => url.replace(/\/$/, ''));
     
