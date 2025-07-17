@@ -21,7 +21,7 @@ const handleResponse = async (response) => {
 export const api = {
     signup: async (userData) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/signup`, {
+            const response = await fetch(`${API_BASE_URL}/api/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData),
@@ -36,7 +36,7 @@ export const api = {
 
     login: async (credentials) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/login`, {
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials),
@@ -50,7 +50,7 @@ export const api = {
     },
 
     verifyEmail: async (token) => {
-        const response = await fetch(`${API_BASE_URL}/verify-email/${token}`, {
+        const response = await fetch(`${API_BASE_URL}/api/verify-email/${token}`, {
             method: 'GET',
         });
         console.log('Email verification response:', response);
@@ -58,7 +58,7 @@ export const api = {
     },
 
     shortenUrl: async (originalUrl, token) => {
-        const response = await fetch(`${API_BASE_URL}/urls/shorten`, {
+        const response = await fetch(`${API_BASE_URL}/api/urls/shorten`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export const api = {
         return handleResponse(response);
     },
     getAllUrls: async (token) => {
-        const response = await fetch(`${API_BASE_URL}/urls`, {
+        const response = await fetch(`${API_BASE_URL}/api/urls`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -16,7 +16,7 @@ const Dashboard = ({ user, onLogout }) => {
     try {
       const urlParts = shortUrl.split('/');
       const code = urlParts[urlParts.length - 1];
-      const redirectUrl = `${API_BASE_URL}/urls/redirect/${code}`;
+      const redirectUrl = `${API_BASE_URL}/api/urls/redirect/${code}`;
 
       window.open(redirectUrl, '_blank');
 
