@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Copy, LogOut, ExternalLink, Zap, BarChart3, Clock } from 'lucide-react';
 import Alert from './CustomAlert';
 import { api, } from '../api';
-import { API_BASE_URL } from '../api/constants';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 
 const Dashboard = ({ user, onLogout }) => {
