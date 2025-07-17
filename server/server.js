@@ -5,37 +5,34 @@ const mongoose = require('mongoose')
 const urlRouter = require('./routes/url_router')
 const userRouter = require('./routes/user_router')
 const path = require('path');
-// server.js
 const cors = require('cors');
 
-// Define allowed origins
+// Define allowed origins (NO trailing slashes)
 const allowedOrigins = [
-    'https://linkly-psi-five.vercel.app/',
-    'http://localhost:5173/', // for local development
+    'https://linkly-psi-five.vercel.app',
+    'http://localhost:5173',
     process.env.FRONTEND_URL
-].filter(Boolean); // Remove any undefined values
+].filter(Boolean).map(url => url.replace(/\/$/, ''));
 
 // CORS configuration
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps, Postman, etc.)
         if (!origin) return callback(null, true);
         
-        // Check if the origin is in the allowed list
-        if (allowedOrigins.some(allowedOrigin => 
-            origin === allowedOrigin || 
-            origin === allowedOrigin.replace(/\/$/, '') || // Remove trailing slash
-            allowedOrigin.replace(/\/$/, '') === origin // Remove trailing slash from allowed
-        )) {
+        const normalizedOrigin = origin.replace(/\/$/, '');
+        
+        // Check if the normalized origin is in the allowed list
+        if (allowedOrigins.includes(normalizedOrigin)) {
             callback(null, true);
         } else {
+            console.log('CORS rejected origin:', origin, 'Allowed origins:', allowedOrigins);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true, // Allow cookies
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+    optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
@@ -64,6 +61,24 @@ mongoose.connect(process.env.CONN_STR, {}).then(() => {
 
 app.use("/api/urls", urlRouter)
 app.use('/api/', userRouter)
+
+
+//DEBUUG 
+// Add this route to your server.js for debugging
+app.get('/debug-cors', (req, res) => {
+    const allowedOrigins = [
+        'https://linkly-psi-five.vercel.app',
+        'http://localhost:5173',
+        process.env.FRONTEND_URL
+    ].filter(Boolean).map(url => url.replace(/\/$/, ''));
+    
+    res.json({
+        origin: req.headers.origin,
+        allowedOrigins: allowedOrigins,
+        frontendUrl: process.env.FRONTEND_URL,
+        allHeaders: req.headers
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
