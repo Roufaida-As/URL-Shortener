@@ -24,7 +24,7 @@ exports.shorten = asyncHandler(async (req, res) => {
 
 
     const urlCode = uuidv4().slice(0, 8); //secure ID generator
-    const shortUrl = `${process.env.BASE_URL}/${urlCode}`;
+    const shortUrl = `${process.env.FRONTEND_URL}/${urlCode}`;
 
     const urlShorted = await Url.create({ originalUrl, shortUrl, urlCode, userId });
 
