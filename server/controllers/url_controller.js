@@ -24,7 +24,7 @@ exports.shorten = asyncHandler(async (req, res) => {
 
 
     const urlCode = uuidv4().slice(0, 8); //secure ID generator
-    const shortUrl = `${process.env.FRONTEND_URL}/${urlCode}`;
+    const shortUrl = `${process.env.FRONTEND_URL}${urlCode}`;
 
     const urlShorted = await Url.create({ originalUrl, shortUrl, urlCode, userId });
 
@@ -56,7 +56,7 @@ exports.redirect = asyncHandler(async (req, res) => {
 
 exports.getAllUrls = asyncHandler(async (req, res) => {
     const userId = req.user._id;
-    const urls = await Url.find({ userId }).sort({ createdAt: -1 });
+    const urls = await Url.find({ userId }).sort({ date: -1 });
     console.log('Fetched URLs for user:', userId, urls);
 
     res.status(200).json({
